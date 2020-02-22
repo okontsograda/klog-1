@@ -1,181 +1,272 @@
 <?php
   // TODO :: Move this to an include (namespace) and include on each page instead of invoking each time
   session_start();
+  include '../model/models.php';
+  include '../controller/finance.controller.php';
+  include '../controller/report.controller.php';
+  
 
+  $reportHandle = new Report();
 ?>
 
 <html>
-  <head>
-    <title>Reports</title>
-    <!-- Navigation Bar Template -->
-    <?php require_once'navbar.php'; ?>
 
-    <!-- VIEWPORT FOR MOBILE DEVICES -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Reports</title>
+  <!-- Navigation Bar Template -->
+  <?php require_once'navbar.php'; ?>
 
-    <!-- CUSTOM CSS STYLESHEET -->
-    <link rel="stylesheet" href="../include/css/dashboard.css">
+  <!-- VIEWPORT FOR MOBILE DEVICES -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-  <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-  <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-  <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-  <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-  <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-  <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="../include/css/util.css">
-    <link rel="stylesheet" type="text/css" href="../include/css/main.css">
-  <!--===============================================================================================-->
+  <!-- CUSTOM CSS STYLESHEET -->
+  <link rel="stylesheet" href="../include/css/dashboard.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../include/css/util.css">
+  <link rel="stylesheet" type="text/css" href="../include/css/main.css">
+  <link href="../include/css/datatables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <script type="text/javascript" src="../include/js/jspdf.debug.js"></script>
 
-  </head>
+</head>
+<div class="container">
+  <div>
+    <button id="print" type="button" class="button" data-toggle="modal" data-target="#btnprint">
+      <img src="https://img.icons8.com/office/30/000000/print.png">
+    </button>
+    <button data-toggle="modal" data-target="#send" id="email" type="button" class="button">
+      <img src="https://img.icons8.com/dusk/64/000000/mailbox-closed-flag-down.png">
+    </button>
 
-<body>
+    <button id="pdf" type="submit" name="submit" class="button">
+      <img src="https://img.icons8.com/dusk/64/000000/pdf.png">
+    </button>
 
-  <!-- FORM INPUT -->
-  
+    <button id="excel" type="button" class="button">
+      <img src="https://img.icons8.com/dusk/64/000000/ms-excel.png">
+    </button>
 
-  <!-- Financial Summary Table -->
-	<div class="limiter">
-		<div class="container-table100">
-			<div class="wrap-table100">
-				<div class="table100">
-					<table>
-						<thead>
-							<tr class="table100-head">
-								<th class="column1">Date</th>
-								<th class="column2">Order ID</th>
-								<th class="column3">Name</th>
-								<th class="column4">Price</th>
-								<th class="column5">Quantity</th>
-								<th class="column6">Total</th>
-							</tr>
-						</thead>
-						<tbody>
-								<tr>
-									<td class="column1">2017-09-29 01:22</td>
-									<td class="column2">200398</td>
-									<td class="column3">iPhone X 64Gb Grey</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-28 05:57</td>
-									<td class="column2">200397</td>
-									<td class="column3">Samsung S8 Black</td>
-									<td class="column4">$756.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$756.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-26 05:57</td>
-									<td class="column2">200396</td>
-									<td class="column3">Game Console Controller</td>
-									<td class="column4">$22.00</td>
-									<td class="column5">2</td>
-									<td class="column6">$44.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-25 23:06</td>
-									<td class="column2">200392</td>
-									<td class="column3">USB 3.0 Cable</td>
-									<td class="column4">$10.00</td>
-									<td class="column5">3</td>
-									<td class="column6">$30.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-24 05:57</td>
-									<td class="column2">200391</td>
-									<td class="column3">Smartwatch 4.0 LTE Wifi</td>
-									<td class="column4">$199.00</td>
-									<td class="column5">6</td>
-									<td class="column6">$1494.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-23 05:57</td>
-									<td class="column2">200390</td>
-									<td class="column3">Camera C430W 4k</td>
-									<td class="column4">$699.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$699.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-22 05:57</td>
-									<td class="column2">200389</td>
-									<td class="column3">Macbook Pro Retina 2017</td>
-									<td class="column4">$2199.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$2199.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-21 05:57</td>
-									<td class="column2">200388</td>
-									<td class="column3">Game Console Controller</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-19 05:57</td>
-									<td class="column2">200387</td>
-									<td class="column3">iPhone X 64Gb Grey</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-18 05:57</td>
-									<td class="column2">200386</td>
-									<td class="column3">iPhone X 64Gb Grey</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-22 05:57</td>
-									<td class="column2">200389</td>
-									<td class="column3">Macbook Pro Retina 2017</td>
-									<td class="column4">$2199.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$2199.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-21 05:57</td>
-									<td class="column2">200388</td>
-									<td class="column3">Game Console Controller</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-19 05:57</td>
-									<td class="column2">200387</td>
-									<td class="column3">iPhone X 64Gb Grey</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-								<tr>
-									<td class="column1">2017-09-18 05:57</td>
-									<td class="column2">200386</td>
-									<td class="column3">iPhone X 64Gb Grey</td>
-									<td class="column4">$999.00</td>
-									<td class="column5">1</td>
-									<td class="column6">$999.00</td>
-								</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Sort by -->
+    <!-- <div class="button"> 
+                <button type="button" 
+                    class="dropdown-toggle"
+                    data-toggle="dropdown"> 
+                <img  src="../include/images/filter.png"> <span class="caret"></span> 
+
+                  </button> 
+                  
+                <ul class="dropdown-menu" role="menu"> 
+                    <li class="litext"><a href="#">Transaction name</a></li> 
+                    <li class="litext"><a href="#">Amount</a></li> 
+                    <li class="litext"><a href="#">Category</a></li> 
+                    <li class="litext"><a href="#">Date</a></li> 
+                </ul> 
+            </div>  -->
+  </div>
+</div>
+<!-- FORM INPUT -->
+<!-- Financial Summary Table -->
+<div id="customers" class="limiter">
+  <div class="container-table100">
+    <div class="wrap-table100">
+      <div class="table100">
+        <table id="report">
+          <thead>
+            <tr class="table100-head">
+              <th class="column1">#</th>
+              <th class="column2">Transaction name</th>
+              <th class="column3">Amount</th>
+              <th class="column4">Category</th>
+              <th class="column5">Finance type</th>
+              <th class="column6">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            $reportHandle->printReport($_SESSION['uid']);
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--print -->
+<div id="btnprint" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Select a print period</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="flex-container">
+
+          <div class="fromDate">
+            <label for="selectFromMonth">From:</label> </br>
+            <select class="form-control" id="selectFromMonth">
+              <option value="" selected disabled hidden><?php 
+ echo date('F')  ?></option>
+              <?php
+for($i=1;$i<13;$i++)
+print("<option>".date('F',strtotime('01.'.$i.'.2020'))."</option>");
+?>
+            </select>
+          </div>
+          <div class="fromYear">
+            <label for="selectFromYear"></label> </br></br>
+            <select class="form-control" id="selectFromYear">
+             
+              <?php
+      $years= $reportHandle->getYears($_SESSION['uid']);
+      $tmp=array_unique($years);
+ foreach ($tmp as $value)
+ {
+   echo("<option>".$value."</option>");
+ }
+ ?>
+            </select>
+
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="toDate">
+            <label for="selectToMonth">To:</label> </br>
+            <select class="form-control" id="selectToMonth">
+              <option value="" selected disabled hidden><?php 
+ echo date('F')  ?></option>
+              <?php
+for($i=1;$i<13;$i++)
+print("<option>".date('F',strtotime('01.'.$i.'.2020'))."</option>");
+?>
+            </select>
+          </div>
+          <div class="toMonth">
+            <label for="selectToYear"> </label> </br></br>
+            <select class="form-control" id="selectToYear">
+            
+              <?php
+foreach ($tmp as $value)
+{
+  echo("<option>".$value."</option>");
+}
+ ?>
+            </select>
+          </div>
+        </div>
+        <form method="POST"  style="padding-top: 40px">
+          <div class="modal-footer" style="padding-bottom: 0px">
+            <button name="submit" type="submit" class="btn btn-success" data-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--send email -->
+
+<!-- Modal -->
+<div id="send" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Send e-mail</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <form class="mailForm">
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" id="email"
+              value="<?php $reportHandle->getEmail($_SESSION['uid']);?>">
+
+            <div class="flex-container">
+              <div class="date">
+                <label for="selectDay">Select day:</label>
+                <select class="form-control day" id="selectDay">
+                  <option value="" selected disabled hidden><?php echo date('l')  ?></option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thursday</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                  <option>Sunday</option>
+                </select>
+              </div>
+              <div class="month">
+                <label for="selectMonth">Select month:</label> </br>
+                <select class="form-control" id="selectMonth">
+                  <option value="" selected disabled hidden><?php 
+     echo date('F')  ?></option>
+                  <?php
+for($i=1;$i<13;$i++)
+print("<option>".date('F',strtotime('01.'.$i.'.2001'))."</option>");
+  ?>
+                </select>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <form method="POST">
+        <div class="modal-footer">
+          <button name="submit" type="submit" class="btn btn-success" data-dismiss="modal">Send</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+</script>
+<script type="text/javascript" src="../include/js/datatables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+</script>
+<script src="../include/js/index.js"></script>
+<script src="../include/js/reports.js"></script>
+
+
+<script>
+  $(document).ready(function () {
+    $('#report').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+<!-- <script>
+     document.getElementById("print").onclick = function() { 
+     
+      print();
+     }
+      </script> -->
+
+<script>
+  document.getElementById("pdf").onclick = function () {
+
+    convertHTMLtoPDF();
+
+  }
+</script>
+
+<script>
+  document.getElementById("excel").onclick = function () {
+    tableToExcel('report', 'Reports');
+  }
+</script>
 
 </html>

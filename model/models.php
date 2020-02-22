@@ -6,7 +6,7 @@
 
     public function __construct() {
       try {
-        $this->pdo = new PDO("mysql:host=localhost;dbname=trax;charset=utf8","trax", "Liv3@123", 
+        $this->pdo = new PDO("mysql:host=localhost;dbname=trax;charset=utf8","root", "Yanka1616", 
         [
           PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -29,8 +29,7 @@
         $this->statement->execute($condition);
         $result = $this->statement->fetchAll();
       } catch (Exception $e) { print( "Unable to query:" .  $e->getMessage()); }
-
-      // Return the result set obtained from the database
+     // Return the result set obtained from the database
       return $result;
     }
 

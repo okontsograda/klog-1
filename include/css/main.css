@@ -51,20 +51,20 @@ ul, li {
 
 
 /* ------------------------------------ */
-input {
+/* input {
   display: block;
 	outline: none;
 	border: none !important;
-}
+} */
 
 textarea {
   display: block;
   outline: none;
 }
 
-textarea:focus, input:focus {
+/* textarea:focus, input:focus {
   border-color: transparent !important;
-}
+} */
 
 /* ------------------------------------ */
 button {
@@ -102,7 +102,7 @@ iframe {
 
 .container-table100 {
   width: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 
   display: -webkit-box;
   display: -webkit-flex;
@@ -146,10 +146,10 @@ table tbody tr:last-child {
   border: 0;
 }
 table td, table th {
-  text-align: left;
+  text-align: center;
 }
 table td.l, table th.l {
-  text-align: right;
+  text-align: center;
 }
 table td.c, table th.c {
   text-align: center;
@@ -186,35 +186,111 @@ tbody tr:hover {
 }
 
 .column1 {
-  width: 260px;
-  padding-left: 40px;
+  width: auto;
+  text-align: center;
 }
 
 .column2 {
-  width: 160px;
+  width: auto;
+  text-align: center;
+ 
 }
 
 .column3 {
-  width: 245px;
+  width: auto;
+  text-align: center;
 }
 
 .column4 {
-  width: 110px;
-  text-align: right;
+  width: auto;
+  text-align: center;
 }
 
 .column5 {
-  width: 170px;
-  text-align: right;
+  width: auto;
+  text-align: center;
 }
 
 .column6 {
-  width: 222px;
-  text-align: right;
-  padding-right: 62px;
+  width: auto;
+  text-align: center;
+}
+
+.dropdown-menu a{
+  color: #36304a;
+  font-family: OpenSans-Regular;
+  font-size: 18px;
+}
+
+img{
+  height: 30px;
+}
+
+.button{
+  display: inline-block;
+  padding: 2px;
+  height: 20px;
+}
+.container{
+  display: inline-block;
+  margin: 0px;
+  height: 35px;
+  background-color: #36304a;
+  background: #36304a;
+  border-color: #36304a;
+  width: auto;
+  border-radius: 5px;
+}
+
+a.page-link{
+  background: #36304a;
+  color: white;
+}
+
+.page-item.active .page-link {
+  background: #615b74;
+  background-color:#615b74 ;
+  border-color: #615b74;
+  color: white;
 }
 
 
+
+@media print
+{
+    .container{
+    display:none; 
+     }
+     a.page-link,  .dataTables_info{
+      display:none;
+     }
+     .dataTables_length, .bs-select label{
+      display:none;
+     }
+     #report_filter.dataTables_filter{
+      display:none;
+     }
+} 
+.dropdown-menu a {
+  height: auto;
+}
+.dropdown-menu.show{
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+}
+
+.litext{
+    text-align: center; 
+    padding: 0; 
+}
+.litext:hover{
+  background: whitesmoke;
+}
+
+.dropdown-toggle::after{
+  color: white;
+}
 @media screen and (max-width: 992px) {
   table {
     display: block;
@@ -247,23 +323,24 @@ tbody tr:hover {
     left: 30px;
     top: 0;
   }
+ 
   table tbody tr td:nth-child(1):before {
-    content: "Date";
-  }
-  table tbody tr td:nth-child(2):before {
     content: "Order ID";
   }
-  table tbody tr td:nth-child(3):before {
+  table tbody tr td:nth-child(2):before {
     content: "Name";
   }
-  table tbody tr td:nth-child(4):before {
+  table tbody tr td:nth-child(3):before {
     content: "Price";
   }
-  table tbody tr td:nth-child(5):before {
+  table tbody tr td:nth-child(4):before {
     content: "Quantity";
   }
-  table tbody tr td:nth-child(6):before {
+  table tbody tr td:nth-child(5):before {
     content: "Total";
+  }
+  table tbody tr td:nth-child(6):before {
+    content: "Date";
   }
 
   .column4,
@@ -284,6 +361,9 @@ tbody tr:hover {
   tbody tr {
     font-size: 14px;
   }
+  .modal-content{
+    width:auto;
+  }
 }
 
 @media (max-width: 576px) {
@@ -292,3 +372,45 @@ tbody tr:hover {
     padding-right: 15px;
   }
 }
+
+/* EMAIL FORM */
+.flex-container {
+  
+  display: flex;
+  margin-top: 6px;
+
+}
+
+.modal-content{
+  width:300px;
+}
+
+form{
+  padding:0px;
+  margin:0px;
+}
+/* 
+.month, .form-control{
+display: inline;
+}
+
+select.form-control{
+  width: auto;
+}
+.day{
+  display: block;
+} */
+
+
+/* input.form-control :focus {
+  outline: 0;
+  outline-offset: 0;
+  border-color: #36304a;
+}  */
+
+.form-control:focus {
+  border-color: #36304a;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #36304a;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #36304a;
+  }

@@ -1,4 +1,7 @@
 
+
+
+
 // If the forgot login link is clicked, change login form to style="display:none;"
 // and set reset form to style="display:block"
 $(document).ready(function() {

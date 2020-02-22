@@ -41,6 +41,19 @@
         return $dataSet;
       }
 
+      public function getYearsData( $userId ) {
+        $dataSet = $this->dbHandle->queryAll("SELECT  `timestamp` FROM `finance` WHERE `user_id` = " . $userId );
+
+        return $dataSet;
+      }
+
+      public function getEmailData( $userId ) {
+        // Query for the complete expense dataset
+        $email = $this->dbHandle->queryOneRow("SELECT `email` FROM `users` WHERE `id` = " . $userId."");
+
+        return $email;
+      }
+
       public function getSumYearly( $financeType, $userId ) {
         // Set today's year to query
         $year = date('Y');
